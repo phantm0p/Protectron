@@ -1,1 +1,1 @@
-bot: python protectron.py
+bot: python protect.py
