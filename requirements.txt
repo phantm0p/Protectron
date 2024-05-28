@@ -1,4 +1,4 @@
 pyrogram
 pymongo
-dotenv
+python-dotenv
 apscheduler
