@@ -158,7 +158,7 @@ async def unapprove_user(client, message: Message):
 @app.on_message(filters.command("makeadmin") & filters.user(BOT_OWNER_ID))
 async def make_admin(client, message: Message):
     if len(message.command) != 2:
-        await message.reply("Usage: /makeadmin 'user_id>')
+        await message.reply("Usage: /makeadmin 'user_id')
         return
     user_id = int(message.command[1])
     try:
