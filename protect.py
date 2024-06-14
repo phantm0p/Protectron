@@ -90,7 +90,7 @@ def is_admin(user_id):
 @app.on_message(filters.command("approve") & (filters.user(BOT_OWNER_ID) | filters.create(lambda _, __, m: is_admin(m.from_user.id))))
 async def approve_chat(client, message: Message):
     if len(message.command) != 2:
-        await message.reply("Usage: /approve 'chat_id'")
+        await message.reply("Usage: /approve chat_id")
         return
     chat_id = message.command[1]
     try:
@@ -107,7 +107,7 @@ async def approve_chat(client, message: Message):
 @app.on_message(filters.command("unapprove") & (filters.user(BOT_OWNER_ID) | filters.create(lambda _, __, m: is_admin(m.from_user.id))))
 async def unapprove_chat(client, message: Message):
     if len(message.command) != 2:
-        await message.reply("Usage: /unapprove 'chat_id'")
+        await message.reply("Usage: /unapprove chat_id")
         return
     chat_id = message.command[1]
     try:
@@ -124,7 +124,7 @@ async def unapprove_chat(client, message: Message):
 @app.on_message(filters.command("approveuser") & (filters.user(BOT_OWNER_ID) | filters.create(lambda _, __, m: is_admin(m.from_user.id))))
 async def approve_user(client, message: Message):
     if len(message.command) != 2:
-        await message.reply("Usage: /approveuser 'user_id'")
+        await message.reply("Usage: /approveuser user_id")
         return
     user_id = int(message.command[1])
     try:
@@ -141,7 +141,7 @@ async def approve_user(client, message: Message):
 @app.on_message(filters.command("unapproveuser") & (filters.user(BOT_OWNER_ID) | filters.create(lambda _, __, m: is_admin(m.from_user.id))))
 async def unapprove_user(client, message: Message):
     if len(message.command) != 2:
-        await message.reply("Usage: /unapproveuser 'user_id'")
+        await message.reply("Usage: /unapproveuser user_id")
         return
     user_id = int(message.command[1])
     try:
@@ -158,7 +158,7 @@ async def unapprove_user(client, message: Message):
 @app.on_message(filters.command("makeadmin") & filters.user(BOT_OWNER_ID))
 async def make_admin(client, message: Message):
     if len(message.command) != 2:
-        await message.reply("Usage: /makeadmin 'user_id')
+        await message.reply("Usage: /makeadmin user_id)
         return
     user_id = int(message.command[1])
     try:
@@ -177,11 +177,11 @@ async def make_admin(client, message: Message):
 async def help_command(client, message: Message):
     help_text = """
     **Available Commands:**
-/approve 'chat_id' - Approve a chat
-/unapprove 'chat_id' - Unapprove a chat
-/approveuser 'user_id' - Approve a user
-/unapproveuser 'user_id' - Unapprove a user
-/makeadmin 'user_id' - Make a user an admin -- USABLE BY OWNER ONLY
+/approve chat_id - Approve a chat
+/unapprove chat_id - Unapprove a chat
+/approveuser user_id - Approve a user
+/unapproveuser user_id - Unapprove a user
+/makeadmin user_id - Make a user an admin -- USABLE BY OWNER ONLY
     """
     await message.reply(help_text)
 
