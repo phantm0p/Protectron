@@ -9,6 +9,15 @@ from dotenv import load_dotenv
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pymongo.errors import PyMongoError
 import datetime
+import unicodedata
+
+
+def normalize_text(text):
+    return ''.join(
+        char for char in unicodedata.normalize('NFD', text)
+        if unicodedata.category(char) != 'Mn'
+    )
+
 
 
 # Load environment variables from .env file
@@ -192,7 +201,8 @@ async def save_message(client, message: Message):
     if approved_chats_collection.find_one({"chat_id": chat_id}):
         text = message.text or message.caption
         if text:
-            words_count = len(text.split())
+            normalized_text = normalize_text(text)
+            words_count = len(normalized_text.split())
             if words_count > 30 and user_id != BOT_OWNER_ID and not approved_users_collection.find_one({"user_id": user_id}):
                 await message.delete()
                 logger.info(f"Message deleted from user {user_id} in chat {chat_id} due to word limit.")
@@ -218,7 +228,8 @@ async def edit_message(client, message: Message):
     if approved_chats_collection.find_one({"chat_id": chat_id}):
         text = message.text or message.caption
         if text:
-            words_count = len(text.split())
+            normalized_text = normalize_text(text)
+            words_count = len(normalized_text.split())
             if words_count > 30 and user_id != BOT_OWNER_ID and not approved_users_collection.find_one({"user_id": user_id}):
                 await message.delete()
                 logger.info(f"Edited message deleted from user {user_id} in chat {chat_id} due to word limit.")
